@@ -18,7 +18,6 @@ const BET_FEE = 0.000002;
 const TOKEN_RATIO = 1;
 
 const Home: NextPage = () => {
-	const router = useRouter();
 	const options = {
 		alchemy: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
 		infura: process.env.NEXT_PUBLIC_INFURA_API_KEY,
@@ -31,14 +30,15 @@ const Home: NextPage = () => {
 
 	accounts = [signer];
 	useEffect(() => {
-		const contract = new ethers.Contract(
-			LOTTERY_CONTRACT_ADDRESS,
-			LotteryJson.abi,
-			provider
-		).connect(signer);
-		lotteryContract = contract;
-		// initTokenContract();
-		console.log("lotteryContract", lotteryContract);
+		// const contract = new ethers.Contract(
+		// 	LOTTERY_CONTRACT_ADDRESS,
+		// 	LotteryJson.abi,
+		// 	provider
+		// ).connect(signer);
+		// lotteryContract = contract;
+		// // initTokenContract();
+		// console.log("lotteryContract", lotteryContract);
+		initContracts();
 	}, []);
 
 	// async function initTokenContract() {
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
 		);
 		token = tokenFactory.attach(tokenAddress);
 		lotteryContract = contract;
-		console.log(`Contracts initialized at ${contract.address}]n`);
+		console.log(`Contracts initialized at ${contract.address}]\n`);
 		console.log(`The Token contract: ${token.address}\n`);
 	}
 
@@ -226,7 +226,7 @@ const Home: NextPage = () => {
 						<h2>open bets</h2>
 					</button>
 					<button
-						onClick={() => topUpAccountTokens("0", "10")}
+						onClick={() => topUpAccountTokens("0", "0.0001")}
 						className="hover:bg-blue-500 active:bg-blue-700 focus:outline-none focus:ring focus:ring-slate-400 rounded p-7  text-white text-lg font-bold bg-blue-400"
 					>
 						<h2>buy tokens</h2>
