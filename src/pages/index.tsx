@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { ethers, Signer, ContractFactory } from "ethers";
 import TokenJson from "../assets/LotteryToken.json";
 import LotteryJson from "../assets/Lottery.json";
@@ -10,9 +9,7 @@ let lotteryContract: ethers.Contract;
 let token: ethers.Contract;
 let accounts: Signer[];
 let provider: ethers.providers.Provider;
-// let contract: ethers.Contract;
 
-const LOTTERY_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 const BET_PRICE = 0.000003;
 const BET_FEE = 0.000002;
 const TOKEN_RATIO = 1;
@@ -30,28 +27,8 @@ const Home: NextPage = () => {
 
 	accounts = [signer];
 	useEffect(() => {
-		// const contract = new ethers.Contract(
-		// 	LOTTERY_CONTRACT_ADDRESS,
-		// 	LotteryJson.abi,
-		// 	provider
-		// ).connect(signer);
-		// lotteryContract = contract;
-		// // initTokenContract();
-		// console.log("lotteryContract", lotteryContract);
 		initContracts();
 	}, []);
-
-	// async function initTokenContract() {
-	// 	const tokenAddress = await lotteryContract.paymentToken();
-	// 	const tokenFactory = new ContractFactory(
-	// 		TokenJson.abi,
-	// 		TokenJson.bytecode,
-	// 		accounts[0]
-	// 	);
-	// 	token = tokenFactory.attach(tokenAddress);
-	// 	console.log(`The lottery contract: ${lotteryContract.address}\n`);
-	// 	console.log(`The token contract: ${token.address}\n`);
-	// }
 
 	async function initContracts() {
 		const contractFactory = new ContractFactory(
